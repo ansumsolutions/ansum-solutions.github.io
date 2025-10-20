@@ -54,6 +54,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeCounterAnimation();
     initializeForms();
+    // Fix: Add event listener for close button on demo form
+    const quoteCloseBtn = document.getElementById('quote-close');
+    if (quoteCloseBtn) {
+        quoteCloseBtn.addEventListener('click', closeQuoteModal);
+    }
 });
 
 // Navigation Functions
@@ -61,18 +66,36 @@ function initializeNavigation() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+    const navOverlay = document.getElementById('nav-overlay');
+    const navMenuMobile = document.getElementById('nav-menu-mobile');
     
-    // Mobile menu toggle
-    hamburger.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
+    // Mobile menu toggle (supports both the existing nav-menu and a slide-in mobile menu)
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            // Toggle hamburger animation
+            hamburger.classList.toggle('active');
+
+            // Toggle desktop fallback menu (if present)
+            if (navMenu) navMenu.classList.toggle('active');
+
+            // If a dedicated mobile menu exists, toggle it + overlay
+            if (navMenuMobile) {
+                navMenuMobile.classList.toggle('active');
+            }
+
+            if (navOverlay) {
+                navOverlay.classList.toggle('active');
+            }
+        });
+    }
     
     // Close mobile menu when clicking on a link
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
+            if (navMenuMobile) navMenuMobile.classList.remove('active');
+            if (navOverlay) navOverlay.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
         });
     });
     
@@ -97,11 +120,27 @@ function initializeNavigation() {
     window.addEventListener('scroll', function() {
         const navbar = document.getElementById('navbar');
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            if (navbar) {
+                navbar.style.boxShadow = '0 10px 30px rgba(15, 23, 42, 0.08)';
+                navbar.style.backdropFilter = 'blur(6px)';
+                navbar.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.98), rgba(249,250,251,0.98))';
+            }
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            if (navbar) {
+                navbar.style.boxShadow = '';
+                navbar.style.background = '';
+            }
         }
     });
+
+    // Close mobile menu when clicking overlay
+    if (navOverlay) {
+        navOverlay.addEventListener('click', function() {
+            if (navMenuMobile) navMenuMobile.classList.remove('active');
+            navOverlay.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
+        });
+    }
 }
 
 // Portfolio Functions

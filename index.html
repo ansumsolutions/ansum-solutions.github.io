@@ -12,7 +12,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>Ansum Solutions</h2>
+                <a href="#home"><img src="logo.png" alt="Ansum Solutions Logo" class="nav-logo-img" /></a>
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
@@ -41,6 +41,19 @@
             </div>
         </div>
     </nav>
+
+    <!-- Mobile nav overlay and slide-in menu -->
+    <div id="nav-overlay" class="nav-overlay" aria-hidden="true"></div>
+    <aside id="nav-menu-mobile" class="nav-menu-mobile" aria-hidden="true">
+        <ul class="nav-menu-mobile-list">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><button class="btn btn-primary quote-btn" onclick="openQuoteModal()">Request a Quote</button></li>
+        </ul>
+    </aside>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -455,27 +468,27 @@
     </footer>
 
     <!-- Quote Modal -->
-    <div id="quote-modal" class="modal">
+    <div id="quote-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Request a Quote</h3>
-                <span class="close" onclick="closeQuoteModal()">&times;</span>
+                <h3 id="quote-modal-title"><i class="fa-solid fa-rocket"></i> Request a Demo</h3>
+                <button type="button" class="close" aria-label="Close demo form" id="quote-close">&times;</button>
             </div>
-            <form class="quote-form" id="quote-form">
+            <form class="demo-form-redesign" id="quote-form" novalidate autocomplete="off">
                 <div class="form-group">
-                    <label for="quote-name">Full Name</label>
-                    <input type="text" id="quote-name" name="name" required>
+                    <label for="quote-name"><i class="fa-solid fa-user"></i> Full Name</label>
+                    <input type="text" id="quote-name" name="name" required placeholder="Your Name" autocomplete="name">
                 </div>
                 <div class="form-group">
-                    <label for="quote-email">Email Address</label>
-                    <input type="email" id="quote-email" name="email" required>
+                    <label for="quote-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                    <input type="email" id="quote-email" name="email" required placeholder="you@email.com" autocomplete="email">
                 </div>
                 <div class="form-group">
-                    <label for="quote-phone">Phone Number</label>
-                    <input type="tel" id="quote-phone" name="phone">
+                    <label for="quote-phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+                    <input type="tel" id="quote-phone" name="phone" placeholder="Optional" autocomplete="tel">
                 </div>
                 <div class="form-group">
-                    <label for="quote-service">Service Required</label>
+                    <label for="quote-service"><i class="fa-solid fa-list-check"></i> Service Required</label>
                     <select id="quote-service" name="service" required>
                         <option value="">Select a service...</option>
                         <option value="website">Website Development</option>
@@ -485,7 +498,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="quote-budget">Budget Range</label>
+                    <label for="quote-budget"><i class="fa-solid fa-indian-rupee-sign"></i> Budget Range</label>
                     <select id="quote-budget" name="budget">
                         <option value="">Select budget range...</option>
                         <option value="under-50k">Under ₹50,000</option>
@@ -495,10 +508,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="quote-message">Project Details</label>
+                    <label for="quote-message"><i class="fa-solid fa-comment-dots"></i> Project Details</label>
                     <textarea id="quote-message" name="message" rows="4" placeholder="Tell us about your project..."></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full-width">Submit Request</button>
+                <button type="submit" class="btn btn-primary btn-full-width"><i class="fa-solid fa-paper-plane"></i> Submit Demo Request</button>
             </form>
         </div>
     </div>
